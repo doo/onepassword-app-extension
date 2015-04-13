@@ -42,6 +42,18 @@
 		
 		self.usernameTextField.text = loginDict[AppExtensionUsernameKey];
 		self.passwordTextField.text = loginDict[AppExtensionPasswordKey];
+
+		if (loginDict[@"totp"]) {
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"TOTP" message:loginDict[@"totp"] preferredStyle:UIAlertControllerStyleAlert];
+				UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+				}];
+
+				[alert addAction:dismissAction];
+				[self presentViewController:alert animated:YES completion:nil];
+			});
+		}
+
 	}];
 }
 
